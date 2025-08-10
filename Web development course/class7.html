@@ -1,0 +1,130 @@
+
+
+
+<!-- https://gist.github.com/Mr-Awais-khan/95942dc719f030637db7c87537d2770a -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>JavaScript Event Examples</title>
+        <style>
+    .box {
+      padding: 20px;
+      margin: 10px;
+      border: 2px solid #333;
+      width: 200px;
+      height: 100px;
+    }
+    input, button {
+      display: block;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+    <!-- events in js -->
+    
+  <h2>JS Events Example</h2>
+
+  <!-- Mouse Events -->
+  <div class="box" id="mouseBox">Mouse Events</div>
+
+  <!-- Keyboard Events -->
+  <input type="text" id="keyboardInput" placeholder="Type something...">
+
+  <!-- Form Events -->
+  <form id="formExample">
+    <input type="text" name="name" id="formInput" placeholder="Name">
+    <button type="submit">Submit</button>
+  </form>
+
+  <!-- Clipboard Events -->
+  <input type="text" id="clipboardInput" value="Copy this text">
+
+  <!-- Window Events -->
+  <div class="box" id="windowBox">Resize or Scroll the Window</div>
+
+  <!-- Drag & Drop Events -->
+  <div class="box" id="dragItem" draggable="true">Drag Me</div>
+  <div class="box" id="dropZone">Drop Here</div>
+
+  <!-- Animation & Transition -->
+  <div class="box" id="animatedBox">Animation / Transition</div>
+
+  <script>
+    // Mouse Events
+    // const mouseBox = document.getElementById('mouseBox');
+    // mouseBox.addEventListener('click', () => alert('Clicked!'));
+    // mouseBox.addEventListener('dblclick', () => alert('Double Clicked!'));
+    // mouseBox.addEventListener('mouseenter', () => console.log('Mouse Enter'));
+    // mouseBox.addEventListener('mouseleave', () => console.log('Mouse Leave'));
+    // mouseBox.addEventListener('mouseover', () => console.log('Mouse Over'));
+    // mouseBox.addEventListener('mouseout', () => console.log('Mouse Out'));
+    // mouseBox.addEventListener('mousedown', () => console.log('Mouse Down'));
+    // mouseBox.addEventListener('mouseup', () => console.log('Mouse Up'));
+
+    // Keyboard Events
+    // const keyboardInput = document.getElementById('keyboardInput');
+    // keyboardInput.addEventListener('keydown', () => console.log('Key Down'));
+    // keyboardInput.addEventListener('keyup', () => console.log('Key Up'));
+    // keyboardInput.addEventListener('input', () => console.log('Input Event'));
+
+    // // Form Events
+    const form = document.getElementById('formExample');
+    const formInput = document.getElementById('formInput');
+    // formInput.addEventListener('focus', () => console.log('Focus Event'));
+    // formInput.addEventListener('blur', () => console.log('Blur Event'));
+    // formInput.addEventListener('change', () => console.log('Change Event'));
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Form Submitted');
+    });
+
+    // Clipboard Events
+    // const clipboardInput = document.getElementById('clipboardInput');
+    // clipboardInput.addEventListener('copy', () => console.log('Copied'));
+    // clipboardInput.addEventListener('cut', () => console.log('Cut'));
+    // clipboardInput.addEventListener('paste', () => console.log('Pasted'));
+
+    // Window Events
+    // window.addEventListener('resize', () => console.log('Window Resized'));
+    // window.addEventListener('scroll', () => console.log('Window Scrolled'));
+    // window.addEventListener('load', () => console.log('Page Loaded'));
+    // window.addEventListener('beforeunload', () => console.log('Before Unload'));
+
+    // Drag and Drop Events
+    // const dragItem = document.getElementById('dragItem');
+    // const dropZone = document.getElementById('dropZone');
+
+    // dragItem.addEventListener('dragstart', () => console.log('Drag Start'));
+    // dragItem.addEventListener('dragend', () => console.log('Drag End'));
+
+    // dropZone.addEventListener('dragover', (e) => e.preventDefault());
+    // dropZone.addEventListener('dragenter', () => console.log('Drag Enter'));
+    // dropZone.addEventListener('dragleave', () => console.log('Drag Leave'));
+    // dropZone.addEventListener('drop', () => {
+    //   console.log('Dropped');
+    //   dropZone.textContent = 'Dropped Successfully!';
+    // });
+
+    // Animation & Transition
+    // const animatedBox = document.getElementById('animatedBox');
+    // animatedBox.style.transition = "all 1s ease";
+    // animatedBox.addEventListener('click', () => {
+    //   animatedBox.style.backgroundColor = "skyblue";
+    //   animatedBox.style.transform = "scale(1.2)";
+    // });
+    // animatedBox.addEventListener('transitionend', () => {
+    //   console.log('Transition End');
+    // });
+
+    // // Optional Touch Events (for mobile)
+    // mouseBox.addEventListener('touchstart', () => console.log('Touch Start'));
+    // mouseBox.addEventListener('touchmove', () => console.log('Touch Move'));
+    // mouseBox.addEventListener('touchend', () => console.log('Touch End'));
+  </script>
+
+</body>
+</html>

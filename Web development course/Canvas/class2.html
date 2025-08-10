@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            width: 100vw;
+            height: 100vh;
+            background-color: #212121;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        canvas{
+         
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <canvas></canvas>
+    <script>
+
+        let canvas = document.querySelector("canvas")
+
+        let ctx = canvas.getContext("2d")
+
+        canvas.height = 1000
+        canvas.width = 1000
+      
+        let x = 100
+        let y = 190
+        let radius = 50
+        let xSpeed = 5
+        let ySpeed = 2
+        
+       
+
+        function anim() {
+
+        ctx.clearRect(0, 0, 1000, 1000)   
+              
+        ctx.beginPath()
+        ctx.arc(x, y, radius, 0, Math.PI *2 , false)
+        ctx.fill()
+
+        if(x + radius > 1000 || x - radius < 0){
+            xSpeed = -xSpeed
+        }
+
+         if(y + radius > 1000 || y - radius < 0){
+            ySpeed = -ySpeed
+        }
+        x += xSpeed
+        y += ySpeed
+    
+            requestAnimationFrame(anim)
+        }
+
+
+        anim()
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas intro</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            height: 100vh;
+            width: 100vw;
+            background-color: #212121;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #canvas{
+            height: 60%;
+            width: 60%;
+            background-color: white;
+            border-radius: 12px;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas"></canvas>
+    <script>
+        let canvas = document.querySelector("canvas")
+
+        let pen = canvas.getContext("2d");
+
+        // pen.beginPath();
+        // pen.fillStyle = "red";
+        // pen.strokeStyle = "blue";
+        // pen.lineWidth = 5;
+        // pen.rect(20, 10, 50, 50)
+        // pen.stroke();
+
+
+        // pen.fillStyle = "blue";
+        // pen.fillRect(20, 10, 50, 50);
+
+
+        // pen.strokeStyle = "#212121";
+        // pen.lineWidth = 5;
+        // pen.strokeRect(20, 10, 50, 50);
+
+
+        pen.beginPath();
+        pen.arc(70, 20, 10, 0, Math.PI * 2, true)
+        pen.stroke()
+        pen.fillStyle = "red";
+        pen.fill();
+    
+    </script>
+</body>
+</html>

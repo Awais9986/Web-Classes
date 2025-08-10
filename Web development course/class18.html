@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async Await</title>
+</head>
+<body>
+    <script>
+
+        let myPromise = new Promise((resolve, reject)=>{
+
+                setTimeout(()=>{
+                    let data = true
+                    if(data){
+                        resolve("Data comes successfully")
+                    }
+                    else{
+                        reject("Something went wrong")
+                    }
+                }, 2000)
+        })
+     async function getDataFromApi() {
+        try {
+             let data = await myPromise;
+             console.log(data);
+
+        } catch (error) {
+            console.log("This is error", error);   
+        }
+     }
+     
+     getDataFromApi()
+
+    </script>
+</body>
+</html>

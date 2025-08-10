@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            width: 100vw;
+            height: 100vh;
+            background-color: #212121;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        canvas {
+            background-color: white;
+
+        }
+    </style>
+</head>
+<body>
+    <canvas> </canvas>
+    <button>Stop</button>
+    <script>
+
+        let canvas = document.querySelector("canvas")
+
+        let ctx = canvas.getContext("2d")
+
+        canvas.height = 500
+        canvas.width = 500
+
+
+
+        class Ball {
+            constructor(x, y, xSpeed, ySpeed, radius) {
+                this.x = x
+                this.y = y
+                this.xSpeed = xSpeed
+                this.ySpeed = ySpeed
+                this.radius = radius
+            }
+
+            draw = () => {
+
+                ctx.beginPath()
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
+            
+                ctx.fill()
+            }
+
+            update = () => {
+                if (this.x + this.radius > 500 || this.x - this.radius < 0) {
+                    this.xSpeed = -this.xSpeed
+                }
+
+                if (this.y + this.radius > 500 || this.y - this.radius < 0) {
+                    this.ySpeed = -this.ySpeed
+                }
+
+                this.x += this.xSpeed
+                this.y += this.ySpeed
+            }
+            stop = () => {
+                this.xSpeed = 0
+                this.ySpeed = 0
+            }
+
+            increseHeightWidth = () => {
+                this.radius += 500
+            }
+        }
+
+       let  x = 20
+    
+        document.addEventListener("keydown", (e)=>{
+            if(e.key === "ArrowRight"){
+                x += 10
+                console.log(e.key);
+                
+            }
+            if(e.key === "ArrowLeft"){
+                x -= 10
+                console.log(e.key);
+                
+            }
+        })
+
+        let myBall = new Ball(100, 100, 1 , 2, 20)
+
+        document.querySelector("button").addEventListener("click", () => {
+            myBall.increseHeightWidth()
+        })
+
+        function anim() {
+
+            ctx.clearRect(0, 0, 1000, 1000)
+
+                ctx.fillStyle = "blue";
+        ctx.fillRect(x, 470, 200, 20);
+          
+            myBall.draw()
+            myBall.update()
+
+            requestAnimationFrame(anim)
+        }
+        anim()
+
+    </script>
+</body>
+
+</html>

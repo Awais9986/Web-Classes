@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo app</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .main{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2vw;
+            padding: 4vw;
+            background-color: #323232;
+        }
+        .top-section{
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            width: 50%;
+            margin-inline: auto;
+            justify-content: center;
+        }
+        input{
+            padding: 10px;
+            outline: none;
+            border: 2px solid black;
+            border-radius: 6px;
+            width: 40%;
+            font-size: 1rem;
+        }
+        button{
+            padding: 10px;
+            outline: none;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            background-color: lightcoral;
+            color: white;
+        }
+        .todo-container{
+            width: 40%;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .todo{
+            width: 100%;
+            background-color: lightblue;
+            list-style: none;
+            padding: 10px;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .completed{
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <section class="top-section">
+            <input type="text" id="input" placeholder="Going to gym...">
+            <button id="add-btn">Add Todo</button>
+        </section>
+        <div class="todo-container">
+            <div class="todo">
+                <h1>Coding</h1>
+                <button class="delete">Delete 2</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        let input = document.querySelector("#input")
+        let addBtn = document.querySelector("#add-btn")
+        let todoContainer = document.querySelector(".todo-container")
+
+
+        addBtn.addEventListener("click", ()=>{
+            
+            let div = document.createElement("div")
+            div.classList.add("todo")
+
+            div.innerHTML = `
+                <p>${input.value}</p>
+                <button class="delete">Delete</button>
+            `
+            
+            todoContainer.appendChild(div)
+
+            input.value = ""
+
+
+            let deleteBtn = div.querySelector(".delete")
+           
+            deleteBtn.addEventListener("click", ()=>{
+                div.remove()
+            })
+
+            let p = div.querySelector("p")
+            p.addEventListener("click", ()=>{
+                p.classList.toggle("completed")
+            })
+            
+            
+        })
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            width: 100vw;
+            height: 100vh;
+            background-color: #212121;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        canvas {
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <canvas> </canvas>
+    <script>
+
+        let canvas = document.querySelector("canvas")
+
+        let ctx = canvas.getContext("2d")
+
+        canvas.height = 1000
+        canvas.width = 1000
+
+        function getRandomColor() {
+    const hex = Math.floor(Math.random() * '0xffffff').toString(16);
+    return "#" + hex.padStart(6, "0");
+}
+
+        class Ball {
+            constructor(x, y, xSpeed, ySpeed, radius) {
+                this.x = x
+                this.y = y
+                this.xSpeed = xSpeed
+                this.ySpeed = ySpeed
+                this.radius = radius
+                this.color =getRandomColor()
+            }
+
+            draw = () => {
+
+                ctx.beginPath()
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
+                ctx.fillStyle = this.color
+                ctx.fill()
+            }
+
+            update = () => {
+                if (this.x + this.radius > 1000 || this.x - this.radius < 0) {
+                    this.xSpeed = -this.xSpeed
+                }
+
+                if (this.y + this.radius > 1000 || this.y - this.radius < 0) {
+                    this.ySpeed = -this.ySpeed
+                }
+
+                this.x += this.xSpeed
+                this.y += this.ySpeed
+            }
+        }
+
+        let arr = []
+
+        for (let i = 0; i < 1000; i++) {
+            let radius = 10 + Math.random() * 40
+            let x = radius + Math.random() * (canvas.width - 2 * radius)
+            let y = radius + Math.random() * (canvas.height - 2 * radius)
+            let xSpeed = (Math.random() - 0.5) * 10
+            let ySpeed = (Math.random() - 0.5) * 10
+            arr.push(new Ball(x, y, xSpeed, ySpeed, radius))
+            arr.push(new Ball(x * i, y * i, ySpeed, xSpeed))
+        }
+
+        console.log(arr);
+
+        function anim() {
+
+            ctx.clearRect(0, 0, 1000, 1000)
+
+            for (let index = 0; index < 100; index++) {
+                arr[index].draw()
+                arr[index].update()
+            }
+
+            requestAnimationFrame(anim)
+        }
+
+        anim()
+
+    </script>
+</body>
+
+</html>

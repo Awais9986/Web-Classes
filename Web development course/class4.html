@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query Selector</title>
+    <style>
+        body{
+            background-color: #212121;
+        }
+    </style>
+</head>
+<body>
+<div>
+        <h1>baga</h1>
+        <section class="first-section">
+        <h1 id="baga">inner baga</h1>
+        </section>
+</div>
+   <script>
+        // query selector help us to select element like css
+        let para = document.querySelector("div h1")
+        para.style.backgroundColor = "red"
+
+        let baga = document.querySelector("#baga")
+        baga.style.backgroundColor = "lightblue"
+
+        let firstSection = document.querySelector(".first-section")
+        firstSection.style.backgroundColor = "purple"
+        firstSection.style.padding = "12px"
+    </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events in JS</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .main{
+            width: 100vw;
+            height: 100vh;
+            background-color: lightblue;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        button{
+            padding: 10px;
+            border-radius: 6px;
+            background-color: lightcoral;
+            font-size: 1rem;
+            outline: none;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="main">
+        <button id="btn">Click me</button>
+    </div>
+
+    <script>
+   // event 
+
+    /*
+        - Mouse (click, right click, scroll etc)
+        - window (reload, resize, etc )
+        - keyboad (keypress, keyup, keydown)
+
+*/
+
+        let btn = document.querySelector("#btn")
+
+        console.log(btn);
+        console.log(btn.id);
+
+        
+        // callback function
+        // btn.addEventListener("click",  () =>{
+        //     alert("baga")
+            
+        // })
+
+        // arrow function
+        let myFunction = () =>{
+            alert("Baga")
+        }
+
+        // normal function
+        function myFunction2(){
+            alert("baga 222")
+        }
+    
+    
+        
+
+        // btn.addEventListener("click", myFunction2)
+        // btn.addEventListener("mouseenter", myFunction2)
+        // btn.addEventListener("mouseover", myFunction2)
+        // btn.addEventListener("mouseleave", myFunction2)
+        btn.addEventListener("contextmenu", myFunction2)
+
+
+        window.addEventListener("beforeunload", ()=>{
+            alert("Do you really want to close this website")
+        })
+        
+
+
+    </script>
+    
+</body>
+</html>

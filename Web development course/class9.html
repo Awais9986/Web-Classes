@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Apple-Style Todo App</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 4vh;
+    }
+
+    .main {
+      width: 100%;
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .top-section {
+      display: flex;
+      gap: 10px;
+    }
+
+    input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: border 0.2s ease;
+    }
+
+    input:focus {
+      border-color: #007aff;
+      outline: none;
+    }
+
+    button {
+      padding: 12px 20px;
+      background-color: #007aff;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #005ecb;
+      transform: scale(1.03);
+    }
+
+    .todo-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .todo {
+      background-color: white;
+      padding: 14px 18px;
+      border-radius: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    .todo p {
+      margin: 0;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .todo p.completed {
+      text-decoration: line-through;
+      color: #aaa;
+    }
+
+    .todo button.delete {
+      background-color: #ff3b30;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .todo button.delete:hover {
+      background-color: #c62828;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+        transform: scale(1);
+      }
+      to {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main">
+    <section class="top-section">
+      <input type="text" id="input" placeholder="Going to gym..." />
+      <button id="add-btn">Add</button>
+    </section>
+    <div class="todo-container"></div>
+  </div>
+
+  <script>
+    const input = document.querySelector("#input");
+    const addBtn = document.querySelector("#add-btn");
+    const todoContainer = document.querySelector(".todo-container");
+
+    addBtn.addEventListener("click", () => {
+      const value = input.value.trim();
+      if (!value) return;
+
+      const div = document.createElement("div");
+      div.classList.add("todo");
+
+      div.innerHTML = `
+        <p>${value}</p>
+        <button class="delete">Delete</button>
+      `;
+
+      // Add animation on delete
+      const deleteBtn = div.querySelector(".delete");
+      deleteBtn.addEventListener("click", () => {
+        div.style.animation = "fadeOut 0.3s ease forwards";
+        setTimeout(() => div.remove(), 280);
+      });
+
+      // Toggle complete
+      const p = div.querySelector("p");
+      p.addEventListener("click", () => {
+        p.classList.toggle("completed");
+      });
+
+      todoContainer.appendChild(div);
+      input.value = "";
+    });
+  </script>
+</body>
+</html>

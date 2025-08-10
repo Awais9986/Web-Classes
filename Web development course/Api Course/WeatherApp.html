@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Movie Search</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom CSS for the light beam and spotlight effects */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c; /* Dark background */
+            overflow-x: hidden; /* Prevent horizontal scroll due to beam */
+            position: relative;
+        }
+
+        /* Light beam effect container */
+        .light-beam-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none; /* Allow clicks to pass through */
+            z-index: 0; /* Ensure it's behind content */
+        }
+
+        .light-beam {
+            position: absolute;
+            width: 200px; /* Width of the beam */
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(147, 197, 253, 0.1), transparent); /* Light blue gradient */
+            transform: skewX(-20deg); /* Angle the beam */
+            animation: beam-move 15s infinite linear; /* Animation for movement */
+            opacity: 0.3; /* Subtle opacity */
+            filter: blur(50px); /* Soft blur */
+            will-change: transform; /* Optimize for animation */
+        }
+
+        /* Define the animation for the light beam */
+        @keyframes beam-move {
+            0% {
+                left: -250px; /* Start off-screen left */
+            }
+            100% {
+                left: calc(100% + 250px); /* End off-screen right */
+            }
+        }
+
+        /* New Spotlight Effect */
+        .spotlight {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 800px; /* Adjust size */
+            height: 800px; /* Adjust size */
+            background: radial-gradient(circle at center, rgba(147, 197, 253, 0.15) 0%, transparent 70%); /* Blue radial gradient */
+            border-radius: 50%;
+            transform: translate(-50%, -50%); /* Center the spotlight */
+            animation: pulse-spotlight 8s infinite ease-in-out; /* Subtle pulsation */
+            filter: blur(80px); /* More blur for a softer glow */
+            will-change: transform, opacity;
+            z-index: -1; /* Ensure it's behind the main content */
+        }
+
+        @keyframes pulse-spotlight {
+            0% {
+                transform: translate(-50%, -50%) scale(0.9);
+                opacity: 0.2;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 0.4;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(0.9);
+                opacity: 0.2;
+            }
+        }
+
+        /* Style for the movie cards */
+        .movie-card {
+            background-color: #2d3748; /* Darker card background */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative; /* For potential future overlays */
+            overflow: hidden; /* Ensure rounded corners apply to image */
+        }
+
+        .movie-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 300px; /* Fixed height for posters */
+            object-fit: cover; /* Cover the area, crop if necessary */
+        }
+
+        /* Ensure content is above the beam and spotlight */
+        main {
+            position: relative;
+            z-index: 1;
+        }
+         /* Skeleton Loader Styles */
+        .skeleton-card {
+            background-color: #2d3748; /* Same background as movie card */
+            overflow: hidden;
+            position: relative;
+            /* Shimmer effect */
+            background: linear-gradient(90deg, #2d3748 0%, #3a475a 20%, #2d3748 40%, #2d3748 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite linear;
+        }
+
+        .skeleton-card-image {
+            width: 100%;
+            height: 300px;
+            background-color: #3a475a; /* Darker placeholder for image */
+            border-top-left-radius: 0.75rem; /* rounded-t-xl */
+            border-top-right-radius: 0.75rem; /* rounded-t-xl */
+        }
+
+        .skeleton-text {
+            background-color: #3a475a; /* Darker placeholder for text */
+            height: 1.25rem; /* Equivalent to text size */
+            border-radius: 0.25rem; /* Small rounded corners for text lines */
+            margin-bottom: 0.75rem; /* Spacing between lines */
+        }
+
+        .skeleton-text.title {
+            width: 80%; /* Shorter for title */
+            height: 1.5rem; /* Slightly taller for title */
+        }
+
+        .skeleton-text.year {
+            width: 40%; /* Shorter for year */
+        }
+
+        .skeleton-text.type {
+            width: 60%; /* Medium for type */
+        }
+        
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
+
+    <!-- Light Beam Effect Container -->
+    <div class="light-beam-container">
+        <div class="light-beam"></div>
+        <!-- New Spotlight Effect -->
+        <div class="spotlight"></div>
+    </div>
+
+    <main class="flex-grow container mx-auto px-4 py-8 relative z-10">
+        <!-- Search Section -->
+        <section class="  mb-12 text-center">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-blue-400 mb-6 tracking-tight">
+                Movie Explorer
+            </h1>
+            <div  class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <input
+                id="input"
+                    type="text"
+                    placeholder="Search for movies..."
+                    class="w-full sm:w-96 p-4 rounded-xl bg-gray-800 border border-gray-700 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-lg"
+                />
+                <button
+                id="btn"
+                    class="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg transform transition duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+                >
+                    Search
+                </button>
+            </div>
+        </section>
+
+        <section id="skeleton" class=" skeleton-loader-section grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <!-- Skeleton Card 1 -->
+            <div class="skeleton-card rounded-xl shadow-xl">
+                <div class="skeleton-card-image"></div>
+                <div class="p-6">
+                    <div class="skeleton-text title"></div>
+                    <div class="skeleton-text year"></div>
+                    <div class="skeleton-text type"></div>
+                </div>
+            </div>
+
+            <!-- Skeleton Card 2 -->
+            <div class="skeleton-card rounded-xl shadow-xl">
+                <div class="skeleton-card-image"></div>
+                <div class="p-6">
+                    <div class="skeleton-text title"></div>
+                    <div class="skeleton-text year"></div>
+                    <div class="skeleton-text type"></div>
+                </div>
+            </div>
+
+            <!-- Skeleton Card 3 -->
+            <div class="skeleton-card rounded-xl shadow-xl">
+                <div class="skeleton-card-image"></div>
+                <div class="p-6">
+                    <div class="skeleton-text title"></div>
+                    <div class="skeleton-text year"></div>
+                    <div class="skeleton-text type"></div>
+                </div>
+            </div>
+
+            <!-- Skeleton Card 4 -->
+            <div class="skeleton-card rounded-xl shadow-xl">
+                <div class="skeleton-card-image"></div>
+                <div class="p-6">
+                    <div class="skeleton-text title"></div>
+                    <div class="skeleton-text year"></div>
+                    <div class="skeleton-text type"></div>
+                </div>
+            </div>
+
+            <!-- Skeleton Card 5 -->
+            <div class="skeleton-card rounded-xl shadow-xl">
+                <div class="skeleton-card-image"></div>
+                <div class="p-6">
+                    <div class="skeleton-text title"></div>
+                    <div class="skeleton-text year"></div>
+                    <div class="skeleton-text type"></div>
+                </div>
+            </div>
+
+            <!-- Skeleton Card 6 -->
+            <div class="skeleton-card rounded-xl shadow-xl">
+                <div class="skeleton-card-image"></div>
+                <div class="p-6">
+                    <div class="skeleton-text title"></div>
+                    <div class="skeleton-text year"></div>
+                    <div class="skeleton-text type"></div>
+                </div>
+            </div>
+
+            <!-- Skeleton Card 7 -->
+            <div class="skeleton-card rounded-xl shadow-xl">
+                <div class="skeleton-card-image"></div>
+                <div class="p-6">
+                    <div class="skeleton-text title"></div>
+                    <div class="skeleton-text year"></div>
+                    <div class="skeleton-text type"></div>
+                </div>
+            </div>
+
+            <!-- Skeleton Card 8 -->
+            <div class="skeleton-card rounded-xl shadow-xl">
+                <div class="skeleton-card-image"></div>
+                <div class="p-6">
+                    <div class="skeleton-text title"></div>
+                    <div class="skeleton-text year"></div>
+                    <div class="skeleton-text type"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Movie Cards Section -->
+        <section  id="card-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+         
+
+           
+
+       
+        </section>
+    </main>
+
+    <footer class="py-6 text-center text-gray-500 text-sm relative z-10">
+        &copy; 2025 Modern Movie Design. All rights reserved.
+    </footer>
+
+    <script src="api.js"></script>
+
+</body>
+</html>

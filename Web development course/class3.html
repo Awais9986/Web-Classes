@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>getElementById</title>
+</head>
+<body>
+    <p id="baga" class="brown-color pink-color">Himayat Khan</p>
+    <script>
+        let baga = document.getElementById("baga")
+
+        console.log(baga);
+        console.log(baga.id);
+        console.log(baga.classList);
+        baga.style.backgroundColor = "red"
+        baga.style.height = "100px"
+        baga.style.width = "100px"
+
+            console.log(baga.innerHTML);
+            console.log(baga.textContent);
+            console.log(baga.innerText);
+            
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    h2 {
+      font-size: 3rem;
+      color: #222;
+      background: linear-gradient(135deg, #fceabb, #f8b500);
+      padding: 1rem 2rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px #00000026;
+      position: relative;
+              transition:  all ease-in 0.3s;
+    }
+
+    h2 span {
+      background: #ff3e3e;
+      color: #fff;
+      font-size: 1.5rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 8px;
+      margin-left: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+    }
+
+    .invisible{
+        scale: 0;
+        transition:  all ease-in 0.3s;
+    }
+    </style>
+</head>
+
+<body>
+
+    <button id="mybtn">
+        clear Interval
+    </button>
+
+    <h2 id="heading2">Sale <span>50% OFF</span></h2>
+
+    <script>
+
+          let heading2 = document.querySelector("#heading2")
+        
+        let myData = setInterval(()=>{
+            console.log("BAga the great");
+
+            heading2.classList.toggle("invisible")
+            
+        }, 200)
+
+        console.log(myData);
+        
+        document.querySelector("#mybtn").addEventListener("click", ()=>{
+            clearInterval(myData)
+
+        })
+
+    </script>
+</body>
+
+</html>

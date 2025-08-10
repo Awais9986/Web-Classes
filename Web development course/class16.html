@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+            let dataFromApi = new Promise((resolve, reject) =>{
+                let data = false;
+
+                setTimeout(() => {
+                  
+                    if (data) {
+                    resolve("this is user data")
+                }
+                else{
+                    reject("something went wrong")
+                }
+                }, 5000);
+
+             
+            })  
+
+                dataFromApi.then((data)=>{
+                    console.log(data);
+                    
+                }).catch((error)=>{
+                console.log(error);
+                
+            })
+            console.log(dataFromApi);
+            
+
+    </script>
+</body>
+</html>
