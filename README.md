@@ -25,4 +25,4 @@ The purpose of this repo is to:
 ## 🛠️ How to Use
 1. Clone the repository:
    ```bash
-   git clone <repo-link>
+   git clone https://github.com/Awais9986/Web-Classes.git
